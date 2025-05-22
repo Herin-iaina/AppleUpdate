@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# Créer un fichier de log
+LOG_FILE="/tmp/AppleUpdate_install.log"
+echo "Début de l'installation - $(date)" > $LOG_FILE
+
+# Vérifier si nous sommes root
+if [ "$EUID" -ne 0 ]; then
+    echo "Erreur: Le script doit être exécuté en tant que root" >> $LOG_FILE
+    exit 1
+fi
+
+# Créer les répertoires nécessaires
+echo "Création des répertoires..." >> $LOG_FILE
+mkdir -p /usr/local/bin
+mkdir -p /usr/local/share/man/man1
+mkdir -p /usr/local/share/zsh/site-functions
+
+# Vérifier si les fichiers source existent
+echo "Vérification des fichiers source..." >> $LOG_FILE
+if [ ! -f "/tmp/AppleUpdate/update.sh" ]; then
+    echo "Erreur: update.sh non trouvé" >> $LOG_FILE
+    exit 1
+fi
+
+# Copier le script principal
+echo "Copie du script principal..." >> $LOG_FILE
+cp "/tmp/AppleUpdate/update.sh" "/usr/local/bin/update"
+if [ $? -eq 0 ]; then
+    chmod 755 "/usr/local/bin/update"
+    echo "Script principal installé avec succès" >> $LOG_FILE
+else
+    echo "Erreur lors de la copie du script principal" >> $LOG_FILE
+    exit 1
+fi
+
+# Copier la page de manuel
+echo "Copie de la page de manuel..." >> $LOG_FILE
+if [ -f "/tmp/AppleUpdate/update.1" ]; then
+    cp "/tmp/AppleUpdate/update.1" "/usr/local/share/man/man1/"
+    chmod 644 "/usr/local/share/man/man1/update.1"
+    echo "Page de manuel installée avec succès" >> $LOG_FILE
+fi
+
+# Copier le fichier de complétion
+echo "Copie du fichier de complétion..." >> $LOG_FILE
+if [ -f "/tmp/AppleUpdate/_update" ]; then
+    cp "/tmp/AppleUpdate/_update" "/usr/local/share/zsh/site-functions/"
+    chmod 644 "/usr/local/share/zsh/site-functions/_update"
+    echo "Fichier de complétion installé avec succès" >> $LOG_FILE
+fi
+
+# Mettre à jour la base de données des manuels
+echo "Mise à jour de la base de données des manuels..." >> $LOG_FILE
+/usr/libexec/makewhatis
+
+# Vérifier l'installation
+echo "Vérification de l'installation..." >> $LOG_FILE
+if [ -f "/usr/local/bin/update" ]; then
+    echo "Installation réussie" >> $LOG_FILE
+else
+    echo "Erreur: Installation échouée" >> $LOG_FILE
+    exit 1
+fi
+
+# Nettoyer
+echo "Nettoyage..." >> $LOG_FILE
+rm -rf /tmp/AppleUpdate
+
+echo "Fin de l'installation - $(date)" >> $LOG_FILE
+
+exit 0
