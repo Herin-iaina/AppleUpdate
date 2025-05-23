@@ -5,4 +5,9 @@ if [ -f /usr/local/bin/update ]; then
     mv /usr/local/bin/update /usr/local/bin/update.bak
 fi
 
+# Supprimer le lien symbolique s'il existe
+if [ -L /usr/bin/update ]; then
+    rm /usr/bin/update
+fi
+
 exit 0

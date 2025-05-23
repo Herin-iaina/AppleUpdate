@@ -8,7 +8,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Définir les paramètres
-INTERFACE=$(/sbin/route get default | grep interface | awk '{print $2}')
+INTERFACE=$(route get default | grep interface | awk '{print $2}')
 LOG_FILE="$HOME/Desktop/apple_updates_traffic.log"
 PCAP_FILE="$HOME/Desktop/apple_updates.pcap"
 APPLE_DOMAINS="host swscan.apple.com or host swcdn.apple.com or host appldnld.apple.com or host mesu.apple.com or host gdmf.apple.com"
@@ -58,7 +58,6 @@ block_updates() {
 127.0.0.1 appldnld.apple.com
 127.0.0.1 mesu.apple.com
 127.0.0.1 gdmf.apple.com
-127.0.0.1 swdist.apple.com
 EOF
   
   # Vider le cache DNS
@@ -105,3 +104,5 @@ case "$1" in
     show_help
     ;;
 esac
+
+sudo chmod +x /usr/local/bin/update
