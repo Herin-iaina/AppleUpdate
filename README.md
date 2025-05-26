@@ -30,7 +30,7 @@ export PATH="/usr/local/bin:$PATH"
 ```
 
 Maintenant, vous pourrez utiliser la commande update depuis n'importe quel répertoire. 
-Par exemple :
+</br>Par exemple :
 ```
 sudo update -m    # Pour surveiller le trafic
 sudo update -c    # Pour capturer le trafic
@@ -40,7 +40,7 @@ sudo update -h    # Pour afficher l'aide
 ```
 
 Pour rendre le script encore plus professionnel, vous pourriez aussi :
-Créer un fichier de manuel :
+</br>Créer un fichier de manuel :
 ```
 sudo mkdir -p /usr/local/share/man/man1 \
 sudo nano /usr/local/share/man/man1/update.1 
@@ -139,7 +139,7 @@ sudo chmod 755 /usr/local/bin/update
 ```
 
 Comment créer un package d'installation pour macOS en utilisant pkgbuild et productbuild. C'est la méthode recommandée par Apple pour distribuer des logiciels sur macOS.
-Créer une structure de projet :
+</br>Créer une structure de projet :
 ```
 mkdir -p AppleUpdate/pkg
 cd AppleUpdate
@@ -280,19 +280,26 @@ Exécuter le build :
 ./build.sh
 ```
 Le résultat sera un fichier AppleUpdateManager.pkg qui peut être distribué et installé sur n'importe quel Mac compatible.
-Pour installer le package sur un autre Mac :
-Double-cliquer sur AppleUpdateManager.pkg
-Suivre l'assistant d'installation
-Entrer le mot de passe administrateur quand demandé
-Le package installera automatiquement :
-La commande update
-La page de manuel
-Les complétions zsh
-Tous les fichiers nécessaires aux bons endroits
-Pour désinstaller :
+</br>Pour installer le package sur un autre Mac :
+</br>Double-cliquer sur AppleUpdateManager.pkg
+</br>Suivre l'assistant d'installation
+</br>Entrer le mot de passe administrateur quand demandé
+</br>Le package installera automatiquement :
+</br>La commande update
+</br>La page de manuel
+</br>Les complétions zsh
+</br>Tous les fichiers nécessaires aux bons endroits
+</br>Pour désinstaller :
 ```
 sudo rm /usr/local/bin/update
 sudo rm /usr/local/share/man/man1/update.1
 sudo rm /usr/local/share/zsh/site-functions/_update
 sudo /usr/libexec/makewhatis
 ```
+
+Utilisation via ARD. 
+</br>La commande doit être exécutée avec les privilèges root
+```
+/usr/local/bin/update [option]
+```
+
