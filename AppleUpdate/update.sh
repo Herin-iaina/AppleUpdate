@@ -79,7 +79,7 @@ unblock_updates() {
   sed -i '' '/appldnld.apple.com/d' /etc/hosts
   sed -i '' '/mesu.apple.com/d' /etc/hosts
   sed -i '' '/gdmf.apple.com/d' /etc/hosts
-   sed -i '' '/swdist.apple.com/d' /etc/hosts
+  sed -i '' '/swdist.apple.com/d' /etc/hosts
   
   # Vider le cache DNS
   dscacheutil -flushcache

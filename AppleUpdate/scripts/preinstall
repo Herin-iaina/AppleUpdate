@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Sauvegarder les fichiers existants
-if [ -f /usr/local/bin/update ]; then
-    mv /usr/local/bin/update /usr/local/bin/update.bak
-fi
-
-exit 0
