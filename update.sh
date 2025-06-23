@@ -104,3 +104,5 @@ case "$1" in
     show_help
     ;;
 esac
+
+sudo chmod +x /usr/local/bin/update
